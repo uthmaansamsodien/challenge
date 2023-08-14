@@ -18,7 +18,7 @@ class Users {
     const query = `
     SELECT userID, firstName, lastName, gender, userDOB, emailAdd, profileUrl
     FROM Users
-    WHERE userID = ${req.params.id};
+    WHERE userID = ${req.params.id}
     `
     db.query(query,
         (err, result) => {
@@ -31,7 +31,23 @@ class Users {
   }
   login(req, res) {
   }
-  register(req, res) {
+   async register(req, res) {
+    const {emailAdd, userPass} = req.body
+    // Encript password
+    data.userPass =hash(data.userPass, 15)
+    // Payload
+    const user ={
+        emailAdd: data.emailAdd,
+        userPass: data.userPass
+    }
+    // Query
+    const query = `
+    INSERT INTO Users
+    SET? `
+    db(query, (err)=>{
+        if(err) throw err
+        res.cookie()
+    })
   }
   updateUser(req, res) {
     const query = `
